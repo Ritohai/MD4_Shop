@@ -1,0 +1,169 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Shop </title>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+	<!-- Custom Theme files -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+	<!-- Custom Theme files -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Shoplist Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!--Google Fonts-->
+	<link th:href='@{//fonts.googleapis.com/css?family=Hind:400,500,300,600,700}' rel='stylesheet' type='text/css'>
+	<link th:href='@{//fonts.googleapis.com/css?family=Oswald:400,700,300}' rel='stylesheet' type='text/css'>
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
+	</script>
+	<!-- //end-smoth-scrolling -->
+	<script th:src="@{/js/simpleCart.min.js}"> </script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--header strat here-->
+<th:block th:insert="/page/navbar.html"></th:block>
+<!--header end here-->
+<!--single start here-->
+<!--single start here-->
+<div class="single">
+	<div class="container">
+		<div class="single-main">
+			<div class="single-top-main">
+				<div class="col-md-5 single-top">
+					<div style="width: 100%">
+							 <img th:src="|/image/${product.image}|" >
+					</div>
+				</div>
+				<div class="col-md-7 single-top-left simpleCart_shelfItem">
+					<h2></h2>
+					<h1 th:text="${product.name}"></h1>
+					<h3></h3>
+					<h6 class="item_price" th:text="${product.price}"></h6>
+					<p th:text="${product.description}"></p>
+					<ul class="bann-btns">
+						<li><a href="" class="item_add add-cart"  th:data-id="${product.id}">Add To Cart</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+<!--			<div class="singlepage-product">-->
+<!--				<div class="col-md-3 home-grid">-->
+<!--					<div class="home-product-main">-->
+<!--						<div class="home-product-top">-->
+<!--							<a href="#"><img src="images/h14.jpg" alt="" class="img-responsive zoom-img"></a>-->
+<!--						</div>-->
+<!--						<div class="home-product-bottom">-->
+<!--							<h3><a href="#">Smart Shopping</a></h3>-->
+<!--							<p>Explore Now</p>-->
+<!--						</div>-->
+<!--						<div class="srch">-->
+<!--							<span>$200</span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-md-3 home-grid">-->
+<!--					<div class="home-product-main">-->
+<!--						<div class="home-product-top">-->
+<!--							<a href="#"><img src="images/h15.jpg" alt="" class="img-responsive zoom-img"></a>-->
+<!--						</div>-->
+<!--						<div class="home-product-bottom">-->
+<!--							<h3><a href="#">Smart Shopping</a></h3>-->
+<!--							<p>Explore Now</p>-->
+<!--						</div>-->
+<!--						<div class="srch">-->
+<!--							<span>$200</span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-md-3 home-grid">-->
+<!--					<div class="home-product-main">-->
+<!--						<div class="home-product-top">-->
+<!--							<a href="#"><img src="images/h16.jpg" alt="" class="img-responsive zoom-img"></a>-->
+<!--						</div>-->
+<!--						<div class="home-product-bottom">-->
+<!--							<h3><a href="#">Smart Shopping</a></h3>-->
+<!--							<p>Explore Now</p>-->
+<!--						</div>-->
+<!--						<div class="srch">-->
+<!--							<span>$200</span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-md-3 home-grid">-->
+<!--					<div class="home-product-main">-->
+<!--						<div class="home-product-top">-->
+<!--							<a href="#"><img src="images/h17.jpg" alt="" class="img-responsive zoom-img"></a>-->
+<!--						</div>-->
+<!--						<div class="home-product-bottom">-->
+<!--							<h3><a href="#">Smart Shopping</a></h3>-->
+<!--							<p>Explore Now</p>-->
+<!--						</div>-->
+<!--						<div class="srch">-->
+<!--							<span>$200</span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="clearfix"> </div>-->
+<!--			</div>-->
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).on("click", ".add-cart", function () {
+		const id = $(this).data("id");
+		console.log(id);
+		$.ajax({
+			url: "/add-cart",
+			type: "GET",
+			data: {
+				id: id
+			},
+			success: function (data) {
+				console.log(data);
+				if (data.hasOwnProperty("error")) {
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: data.error,
+						showConfirmButton: false,
+						timer: 2000
+					});
+				} else if (data.hasOwnProperty("success")) {
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: '❤️Added to cart !!!❤️',
+						showConfirmButton: false,
+						timer: 1500
+					});
+				}
+			}
+		});
+	});
+</script>
+<!--single end here-->
+<!--footer strat here-->
+<th:block th:insert="/page/footer.html"></th:block>
+<!--footer end here-->
+</body>
+</html>
+
+

@@ -1,0 +1,92 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shop </title>
+    <link th:href="@{css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <!-- Custom Theme files -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Shoplist Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--Google Fonts-->
+    <link th:href='@{//fonts.googleapis.com/css?family=Hind:400,500,300,600,700}' rel='stylesheet' type='text/css'>
+    <link th:href='@{//fonts.googleapis.com/css?family=Oswald:400,700,300}' rel='stylesheet' type='text/css'>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+    <script type="text/javascript" th:src="@{/js/easing.js}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+    </script>
+    <!-- //end-smoth-scrolling -->
+    <script th:src="@{js/simpleCart.min.js}"> </script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--header strat here-->
+<th:block th:insert="/page/navbar.html"></th:block>
+<!--header end here-->
+<!--log in start here-->
+<div class="signin">
+    <div class="container">
+        <div class="signin-main">
+            <h1>Order</h1>
+            <h2>Billing Detail</h2>
+            <form action="/create-order" method="post" th:object="${orders}" >
+                <div>
+                    <input type="text" placeholder="Phone" th:field="*{phone}">
+                    <p style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+                </div>
+                <div>
+                    <input type="text" class="no-margin" placeholder="Address" th:field="*{address}">
+                    <p style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+                </div>
+                <div>
+                    <input type="text" placeholder="Other" th:field="*{other}"/>
+                    <p style="color:red" th:if="${#fields.hasErrors('other')}" th:errors="*{other}"></p>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <table class="table" style="width: 60%">
+            <caption>Order Detail</caption>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c,loop :${carts}">
+                <th scope="row">1</th>
+                <td th:text="${c.product_name}"></td>
+                <td th:text="${c.quantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="text-align: end;margin: 30px">
+            <h4>Total: <span th:text="'$' + ${total}"></span></h4>
+        </div>
+    </div>
+</div>
+<!--log in end here-->
+<!--footer strat here-->
+<th:block th:insert="/page/footer.html"></th:block>
+<!--footer end here-->
+</body>
+</html>

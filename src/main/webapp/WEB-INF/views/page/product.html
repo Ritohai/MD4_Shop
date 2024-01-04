@@ -1,0 +1,135 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Shop </title>
+	<link th:href="@{css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+	<!-- Custom Theme files -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+	<!-- Custom Theme files -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Shoplist Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!--Google Fonts-->
+	<link th:href='@{//fonts.googleapis.com/css?family=Hind:400,500,300,600,700}' rel='stylesheet' type='text/css'>
+	<link th:href='@{//fonts.googleapis.com/css?family=Oswald:400,700,300}' rel='stylesheet' type='text/css'>
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
+	</script>
+	<!-- //end-smoth-scrolling -->
+	<script th:src="@{js/simpleCart.min.js}"> </script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+	<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2}"></script>
+</head>
+<body>
+<!--header strat here-->
+<th:block th:insert="/page/navbar.html"></th:block>
+<!--header end here-->
+<!--product start here-->
+<div class="product">
+	<div class="container">
+		<div class="product-main">
+			  <div class=" product-menu-bar">
+			    	<div class="col-md-3 prdt-right">
+					<div class="w_sidebar">
+						<section  class="sky-form">
+							<h1>Categories</h1>
+							<div class="row1 scroll-pane" >
+								<div class="col col-4" th:each="c:${categories}">
+									<label  th:data-id-cate="${c.id}"  th:text="${c.name}" class="checkbox search-by-cate"></label>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			  </div>	
+			  <div class="col-md-9 product-block" >
+			      <div class="col-md-4 home-grid" th:each="p:${products}">
+					<div class="home-product-main">
+					   <div class="home-product-top">
+					      <a th:href="@{|single/${p.id}|}"><img th:src="|image/${p.image}|" alt="" class="img-responsive zoom-img"></a>
+					   </div>
+						<div class="home-product-bottom">
+								<h3 th:text="${p.name}"><a th:href="@{|single/${p.id}|}"></a></h3>
+								<p style="cursor: pointer" th:data-id="${p.id}"  class="add-cart">AddToCart</p>
+						</div>
+						<div class="srch">
+							<span th:text="'$' + ${p.price}"></span>
+						</div>
+					</div>
+				 </div>
+			      <div class="clearfix"> </div>
+			  </div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).on("click", ".add-cart", function () {
+		const id = $(this).data("id");
+		console.log(id);
+		$.ajax({
+			url: "/add-cart",
+			type: "GET",
+			data: {
+				id: id
+			},
+			success: function (data) {
+				console.log(data);
+				if (data.hasOwnProperty("error")) {
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: data.error,
+						showConfirmButton: false,
+						timer: 2000
+					});
+				} else if (data.hasOwnProperty("success")) {
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: '❤️Added to cart !!!❤️',
+						showConfirmButton: false,
+						timer: 1500
+					});
+				}
+			}
+		});
+	});
+
+
+	$(document).on("click", ".search-by-cate", function () {
+		const id = $(this).data("id-cate");
+		console.log(id);
+		$.ajax({
+			url: "/product",
+			type: "GET",
+			data: {
+				id: id
+			},
+		});
+	});
+</script>
+
+<!--product end here-->
+<!--footer strat here-->
+<th:block th:insert="/page/footer.html"></th:block>
+<!--footer end here-->
+</body>
+</html>

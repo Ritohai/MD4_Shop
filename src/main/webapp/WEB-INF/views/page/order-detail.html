@@ -1,0 +1,95 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Shop </title>
+  <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+  <!-- Custom Theme files -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+  <!-- Custom Theme files -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="keywords" content="Shoplist Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+  <script type="application/x-javascript"> addEventListener("load", function () {
+    setTimeout(hideURLbar, 0);
+  }, false);
+
+  function hideURLbar() {
+    window.scrollTo(0, 1);
+  } </script>
+  <!--Google Fonts-->
+  <link th:href='@{//fonts.googleapis.com/css?family=Hind:400,500,300,600,700}' rel='stylesheet' type='text/css'>
+  <link th:href='@{//fonts.googleapis.com/css?family=Oswald:400,700,300}' rel='stylesheet' type='text/css'>
+  <!-- start-smoth-scrolling -->
+  <script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+  <script type="text/javascript" th:src="@{/js/easing.js}"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+      $(".scroll").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+      });
+    });
+  </script>
+  <!-- //end-smoth-scrolling -->
+  <script th:src="@{js/simpleCart.min.js}"></script>
+  <script th:src="@{js/bootstrap.min.js}"></script>
+  <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2}"></script>
+</head>
+<body>
+<!--header strat here-->
+<th:block th:insert="/page/navbar.html"></th:block>
+<!--header end here-->
+<!--start-ckeckout-->
+<div class="ckeckout">
+  <div class="container">
+    <div class="ckeckout-top">
+      <div class=" cart-items heading">
+        <div style="display: flex; justify-content: start;gap: 50px">
+          <h1>Order Detail </h1>
+        </div>
+        <div class="in-check">
+          <ul class="unit">
+            <li><span style="align-items: center">Item</span></li>
+            <li><span style="align-items: center">Product Name</span></li>
+            <li><span style="align-items: center">Image</span></li>
+            <li><span style="align-items: center">Price</span></li>
+            <li><span style="align-items: center">Quantity</span></li>
+            <div class="clearfix"></div>
+          </ul>
+          <ul class="cart-header simpleCart_shelfItem" th:each="c,loop:${orderDetails}">
+            <a><div class="close1" style="margin-top: 10px"></div></a>
+            <li style="align-items: center"><span th:text="${loop.count}"></span></li>
+            <li style="align-items: center"><span th:text="${c.product_name}"></span></li>
+            <li style="align-items: center"> <span><img style="width: 30px" th:src="|/image/${c.image}|" class="img-responsive" alt=""></span></li>
+            <li style="align-items: center"><span class="item_price" th:text="${c.price}"></span></li>
+            <li style="align-items: center">
+              <span th:text="${c.quantity}"></span>
+            </li>
+            <a ><div  class="clearfix" ></div></a>
+          </ul>
+        </div>
+      </div>
+      <div style="margin:30px ;text-align: end">
+        <h4 style="margin: 30px 20px" >Total: <span th:text="${total}"></span></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--end-ckeckout-->
+<!--footer strat here-->
+<th:block th:insert="/page/footer.html"></th:block>
+<!--footer end here-->
+</body>
+</html>
